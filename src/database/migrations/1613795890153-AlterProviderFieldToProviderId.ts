@@ -8,6 +8,7 @@ import {
 
 export default class AlterProviderFieldToProviderId1613795890153
   implements MigrationInterface {
+  //  deepcode ignore member-access: <comment the reason here>
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropColumn('appointments', 'provider');
     await queryRunner.addColumn(
@@ -30,7 +31,7 @@ export default class AlterProviderFieldToProviderId1613795890153
       }),
     );
   }
-
+  //  deepcode ignore member-access: <comment the reason here>
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropForeignKey('appointments', 'appointmentProvider');
     await queryRunner.dropColumn('appointments', 'provider_id');
