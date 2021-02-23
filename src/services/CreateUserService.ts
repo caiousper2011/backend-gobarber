@@ -9,6 +9,7 @@ interface Request {
 }
 
 class CreateUserService {
+  //  deepcode ignore member-access: <comment the reason here>
   public async execute({ name, email, password }: Request): Promise<User> {
     const usersRepository = getRepository(User);
 
