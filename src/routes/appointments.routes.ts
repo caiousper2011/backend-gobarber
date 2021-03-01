@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Request, Router } from 'express';
 import { parseISO } from 'date-fns';
 import { getCustomRepository } from 'typeorm';
 import CreateAppointmentService from '../services/CreateAppointmentService';
@@ -12,7 +12,7 @@ appointmentsRouter.get('/', async (request, response) => {
   return response.json(appointments);
 });
 
-appointmentsRouter.post('/', async (request, response) => {
+appointmentsRouter.post('/', async (request: Request, response) => {
   try {
     const { provider_id, date } = request.body;
 
