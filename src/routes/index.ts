@@ -6,8 +6,8 @@ import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
 const routes = Router();
 routes.use('/sessions', sessionsRouter);
+routes.use('/users', usersRouter);
 routes.use(ensureAuthenticated);
 routes.use('/appointments', appointmentsRouter);
-routes.use('/users', usersRouter);
 
 export default routes;
