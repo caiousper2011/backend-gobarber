@@ -23,6 +23,7 @@
     "prettier"
   ],
   "rules": {
+    "no-useless-constructor": "off",
     "prettier/prettier": "error",
     "no-console":"off",
     "import/extensions": [

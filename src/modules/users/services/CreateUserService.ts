@@ -1,22 +1,24 @@
-import { getRepository } from 'typeorm';
 import { hash } from 'bcryptjs';
 import AppError from '@shared/errors/AppError';
+import { injectable, inject } from 'tsyringe';
 import User from '../infra/typeorm/entities/User';
+import { IUserRepository } from '../repositories/IUsersRepository';
 
-interface Request {
+interface IRequest {
   name: string;
   email: string;
   password: string;
 }
 
+@injectable()
 class CreateUserService {
-  //  deepcode ignore member-access: <comment the reason here>
-  public async execute({ name, email, password }: Request): Promise<User> {
-    const usersRepository = getRepository(User);
+  constructor(
+    @inject('UsersRepository') private userRepository: IUserRepository,
+  ) {}
 
-    const checkUserExists = await usersRepository.findOne({
-      where: { email },
-    });
+  //  deepcode ignore member-access: <comment the reason here>
+  public async execute({ name, email, password }: IRequest): Promise<User> {
+    const checkUserExists = await this.userRepository.findByEmail(email);
 
     if (checkUserExists) {
       throw new AppError('Email address already used.');
@@ -24,13 +26,11 @@ class CreateUserService {
 
     const hashedPass = await hash(password, 8);
 
-    const user = usersRepository.create({
+    const user = await this.userRepository.create({
       name,
       email,
       password: hashedPass,
     });
-
-    await usersRepository.save(user);
 
     return user;
   }
