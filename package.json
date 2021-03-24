@@ -49,17 +49,7 @@
     "tsconfig-paths": "^3.9.0",
     "typescript": "^3.9.2"
   },
-  "lint-staged": {
-    "*.ts": [
-      "eslint --fix",
-      "prettier --write",
-      "yarn coverage",
-      "git add ."
-    ],
-    "*.{js,md}": "prettier --write",
-    "*.js": "eslint --cache --fix"
-  },
   "simple-git-hooks": {
-    "pre-commit": "lint-staged"
+    "pre-commit": "npx lint-staged"
   }
 }
