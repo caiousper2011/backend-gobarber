@@ -6,6 +6,7 @@
     "date-fns": "^2.14.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
+    "husky": "^5.2.0",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.2",
     "nodemailer": "^6.5.0",
@@ -20,7 +21,8 @@
     "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
     "start": "ts-node src/shared/infra/http/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "yarn test -- --coverage"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
@@ -45,5 +47,10 @@
     "ts-node-dev": "^1.0.0-pre.44",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^3.9.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "prettier --write && eslint --fix && yarn test && yarn coverage && git add ."
+    }
   }
 }
