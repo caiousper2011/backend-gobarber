@@ -1,4 +1,3 @@
-import { query } from 'express';
 import {
   MigrationInterface,
   QueryRunner,
@@ -31,6 +30,7 @@ export default class AlterProviderFieldToProviderId1613795890153
       }),
     );
   }
+
   //  deepcode ignore member-access: <comment the reason here>
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropForeignKey('appointments', 'appointmentProvider');

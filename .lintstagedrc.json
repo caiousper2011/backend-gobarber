@@ -1,9 +1,7 @@
 {
   "*.ts": [
-    "eslint --fix",
-    "prettier --write",
-    "yarn test -- --coverage",
-    "yarn dev:server",
+    "prettier --write src/**/*.ts",
+    "eslint --fix src/**/*.ts",
     "git add ."
   ],
   "*.{js,md}": "prettier --write"
