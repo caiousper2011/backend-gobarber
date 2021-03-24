@@ -4,6 +4,9 @@ import AppointmentController from '../controllers/AppointmentController';
 const appointmentsRouter = Router();
 console.log('erro')
 
+
+
+
 const { create } = new AppointmentController();
 
 // appointmentsRouter.get('/', async (request, response) => {
