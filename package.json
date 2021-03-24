@@ -53,6 +53,7 @@
     "*.ts": [
       "eslint --fix",
       "prettier --write",
+      "yarn coverage",
       "git add ."
     ],
     "*.{js,md}": "prettier --write"
