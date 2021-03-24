@@ -2,6 +2,8 @@ import { Router } from 'express';
 import AppointmentController from '../controllers/AppointmentController';
 
 const appointmentsRouter = Router();
+
+
 const { create } = new AppointmentController();
 
 // appointmentsRouter.get('/', async (request, response) => {
