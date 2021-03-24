@@ -49,10 +49,17 @@
     "tsconfig-paths": "^3.9.0",
     "typescript": "^3.9.2"
   },
-  "simple-git-hooks": {
-    "pre-commit": "npx lint-staged"
-  },
   "lint-staged": {
-    "*.ts": "eslint --cache --fix"
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write",
+      "git add ."
+    ],
+    "*.{js,md}": "prettier --write"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
