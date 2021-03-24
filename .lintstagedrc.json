@@ -1,8 +1,9 @@
 {
-  "*.{ts}": [
+  "*.ts": [
     "eslint --fix",
     "prettier --write",
     "yarn test -- --coverage",
+    "yarn dev:server",
     "git add ."
   ],
   "*.{js,md}": "prettier --write"
