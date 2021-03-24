@@ -2,7 +2,7 @@ import { Router } from 'express';
 import AppointmentController from '../controllers/AppointmentController';
 
 const appointmentsRouter = Router();
-
+console.log('erro')
 
 const { create } = new AppointmentController();
 
