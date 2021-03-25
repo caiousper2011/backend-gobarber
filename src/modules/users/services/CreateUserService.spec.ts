@@ -4,15 +4,21 @@ import AppError from '@shared/errors/AppError';
 import FakeUserRepository from '../repositories/fakes/FakeUsersRepository';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 
+let fakeUserRepository: FakeUserRepository;
+let fakeHashProvider: FakeHashProvider;
+let createUserService: CreateUserService;
+
 describe('CreateUsers', () => {
-  it('should create um user', async () => {
-    const fakeUserRepository = new FakeUserRepository();
-    const fakeHashProvider = new FakeHashProvider();
-    const createUserService = new CreateUserService(
+  beforeEach(() => {
+    fakeUserRepository = new FakeUserRepository();
+    fakeHashProvider = new FakeHashProvider();
+    createUserService = new CreateUserService(
       fakeUserRepository,
       fakeHashProvider,
     );
+  });
 
+  it('should create um user', async () => {
     const userParams = {
       name: 'Caio Barbosa',
       email: 'caio.almeida@hotmail.com',
@@ -26,13 +32,6 @@ describe('CreateUsers', () => {
   });
 
   it('should avoid to create user already created', async () => {
-    const fakeUserRepository = new FakeUserRepository();
-    const fakeHashProvider = new FakeHashProvider();
-    const createUserService = new CreateUserService(
-      fakeUserRepository,
-      fakeHashProvider,
-    );
-
     const userParams = {
       name: 'Caio Barbosa',
       email: 'caio.almeida@hotmail.com',
@@ -41,7 +40,7 @@ describe('CreateUsers', () => {
 
     await createUserService.execute(userParams);
 
-    expect(createUserService.execute(userParams)).rejects.toBeInstanceOf(
+    await expect(createUserService.execute(userParams)).rejects.toBeInstanceOf(
       AppError,
     );
   });

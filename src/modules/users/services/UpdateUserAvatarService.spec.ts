@@ -6,20 +6,28 @@ import UpdateUserAvatarService from './UpdateUserAvatarService';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 import UserRepository from '../repositories/fakes/FakeUsersRepository';
 
+let fakeStorageRepository: FakeStorage;
+let fakeUserRepository: UserRepository;
+let fakHashProvider: FakeHashProvider;
+let createUserService: CreateUserService;
+let updateUserAvatarService: UpdateUserAvatarService;
+
 describe('UpdateUserAvatar', () => {
-  it('Should save file', async () => {
-    const fakeStorageRepository = new FakeStorage();
-    const fakeUserRepository = new UserRepository();
-    const fakHashProvider = new FakeHashProvider();
-    const createUserService = new CreateUserService(
+  beforeEach(() => {
+    fakeStorageRepository = new FakeStorage();
+    fakeUserRepository = new UserRepository();
+    fakHashProvider = new FakeHashProvider();
+    createUserService = new CreateUserService(
       fakeUserRepository,
       fakHashProvider,
     );
-    const updateUserAvatarService = new UpdateUserAvatarService(
+    updateUserAvatarService = new UpdateUserAvatarService(
       fakeUserRepository,
       fakeStorageRepository,
     );
+  });
 
+  it('Should save file', async () => {
     const user = await createUserService.execute({
       email: 'caiousper2011@hotmail.com',
       name: 'Caio Barbosa de almeida',
@@ -35,18 +43,6 @@ describe('UpdateUserAvatar', () => {
   });
 
   it('Should update avatar', async () => {
-    const fakeStorageRepository = new FakeStorage();
-    const fakeUserRepository = new UserRepository();
-    const fakHashProvider = new FakeHashProvider();
-    const createUserService = new CreateUserService(
-      fakeUserRepository,
-      fakHashProvider,
-    );
-    const updateUserAvatarService = new UpdateUserAvatarService(
-      fakeUserRepository,
-      fakeStorageRepository,
-    );
-
     const deleteFile = jest.spyOn(fakeStorageRepository, 'deleteFile');
 
     const user = await createUserService.execute({
@@ -70,15 +66,7 @@ describe('UpdateUserAvatar', () => {
   });
 
   it('Should not update or create avatar when not authenticated user', async () => {
-    const fakeStorageRepository = new FakeStorage();
-    const fakeUserRepository = new UserRepository();
-
-    const updateUserAvatarService = new UpdateUserAvatarService(
-      fakeUserRepository,
-      fakeStorageRepository,
-    );
-
-    expect(
+    await expect(
       updateUserAvatarService.execute({
         user_id: '1',
         avatarFilename: 'avengers',
